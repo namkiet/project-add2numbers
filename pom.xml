@@ -14,7 +14,6 @@
 
     <modules>
         <module>mybignumber-core</module>
-        <module>mybignumber-web</module>
     </modules>
 
     <properties>

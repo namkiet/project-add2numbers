@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phép Cộng 2 Số Lớn - MyBigNumber</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .header-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .main-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            background: white;
+        }
+        .step-item {
+            border-left: 4px solid #0d6efd;
+            background-color: #f8f9fa;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+        .result-box {
+            background: #e8f5e9;
+            border: 2px dashed #2e7d32;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1b5e20;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+<div class="container py-4" style="max-width: 860px;">
+    <!-- Header -->
+    <div class="header-card text-center">
+        <h2 class="fw-bold mb-1"><i class="bi bi-calculator me-2"></i>MyBigNumber - Phép Cộng 2 Số Lớn</h2>
+        <p class="mb-0 text-white-50">Remote Internship Program — Challenge for Software Developers</p>
+    </div>
+
+    <!-- Form Input Card -->
+    <div class="card main-card p-4 mb-4">
+        <form th:action="@{/calculate}" method="post" id="calcForm">
+            <div class="mb-3">
+                <label for="num1" class="form-label fw-semibold">Số thứ nhất (Chuỗi ký số 1):</label>
+                <input type="text" class="form-control form-control-lg font-monospace" id="num1" name="num1"
+                       placeholder="Ví dụ: 1234" th:value="${num1}" required>
+            </div>
+            <div class="mb-4">
+                <label for="num2" class="form-label fw-semibold">Số thứ hai (Chuỗi ký số 2):</label>
+                <input type="text" class="form-control form-control-lg font-monospace" id="num2" name="num2"
+                       placeholder="Ví dụ: 897" th:value="${num2}" required>
+            </div>
+
+            <!-- Error alert -->
+            <div th:if="${error}" class="alert alert-danger d-flex align-items-center" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <div th:text="${error}"></div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg fw-semibold" id="submitBtn">
+                    <i class="bi bi-plus-circle me-1"></i> Thực hiện phép tính cộng
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Result & Progress Section -->
+    <div th:if="${result != null}" class="card main-card p-4 mb-4" id="resultSection">
+        <h4 class="fw-bold text-success mb-3">
+            <i class="bi bi-check2-circle me-2"></i>Kết Quả Phép Cộng:
+        </h4>
+        <div class="result-box text-center mb-4 font-monospace" id="resultValue" th:text="${result}"></div>
+
+        <h5 class="fw-bold text-dark mb-3">
+            <i class="bi bi-list-ol me-2"></i>Tiến Trình Thực Hiện Phép Toán (Từng bước):
+        </h5>
+        <div class="steps-container">
+            <div th:each="step : ${steps}" class="step-item font-monospace" th:text="${step}"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
